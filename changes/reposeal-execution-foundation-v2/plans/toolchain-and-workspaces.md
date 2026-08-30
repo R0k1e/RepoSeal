@@ -13,4 +13,3 @@ Base: `engine@a5914490721f401d8dfd9330595a5eb5631b80be`
 Behavior tests exercise missing tools, invalid Worktrunk output, registered
 workspace identity, non-interactive invocation, and retained dirty or advanced
 worktrees.
-
