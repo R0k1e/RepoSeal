@@ -14,4 +14,3 @@ Base: `engine@a5914490721f401d8dfd9330595a5eb5631b80be`
 Behavior tests cover zero, one, and multiple profiles; namespace collisions;
 explicit replacement; unexplained paths; declared/actual mismatch; and reopened
 acceptance. This contract lands before dependent implementation members begin.
-
