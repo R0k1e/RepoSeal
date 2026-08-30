@@ -13,4 +13,3 @@ Base: `engine@a5914490721f401d8dfd9330595a5eb5631b80be`
 Behavior tests cover repeated and incremental admission, conflicts, concurrent
 proposal numbering, reference rewriting, base movement, remote proof, and safe
 cleanup retention.
-
