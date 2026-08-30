@@ -12,4 +12,3 @@ Base: `engine@a5914490721f401d8dfd9330595a5eb5631b80be`
 
 Behavior tests reject stale, incomplete, cross-commit, cross-configuration, and
 cross-toolchain evidence through public validation operations.
-
