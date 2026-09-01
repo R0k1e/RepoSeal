@@ -15,42 +15,44 @@ decisions = "docs/decisions"
 lockfiles = ["uv.lock"]
 
 [[impact.rules]]
-name = "python.source"
+name = "engine.source"
 paths = ["src/**"]
 profiles = ["python-default@1"]
 gates = ["member", "final"]
 
 [[impact.rules]]
-name = "python.unit"
+name = "engine.unit"
 paths = ["tests/unit/**"]
 profiles = ["python-default@1"]
 gates = ["member", "final"]
 
 [[impact.rules]]
-name = "python.integration"
-paths = ["tests/integration/**"]
+name = "engine.integration"
+paths = ["tests/integration/**", "tests/test_*.py", "template/**"]
 profiles = ["python-default@1"]
+gates = ["final"]
+requires_final = true
+
+[[impact.rules]]
+name = "engine.governance"
+paths = ["changes/**", "docs/**", "AGENTS.md", ".agents/**", "reposeal.toml"]
 gates = ["final"]
 requires_final = true
 
 [validation]
 member = [
-  ["git", "diff", "--check"],
-  ["uv", "run", "--no-project", "python", ".agents/repo-dev/runtime/traceability.py"],
+  ["uv", "build"],
+  ["uv", "run", "pre-commit", "run", "--all-files"],
   ["uv", "run", "--no-sync", "ruff", "check", "."],
   ["uv", "run", "--no-sync", "ruff", "format", "--check", "."],
-  ["uv", "run", "--no-sync", "ty", "check", "src"],
-  ["uv", "run", "--no-sync", "pytest", "tests/unit"],
-  ["mise", "run", "python:secrets"],
+  ["uv", "run", "--no-sync", "bandit", "-r", "src"],
+  ["uv", "run", "--no-sync", "pip-audit"],
 ]
 final = [
-  ["git", "diff", "--check"],
-  ["uv", "run", "--no-project", "python", ".agents/repo-dev/runtime/traceability.py"],
+  ["uv", "build"],
+  ["uv", "run", "pre-commit", "run", "--all-files"],
   ["uv", "run", "--no-sync", "ruff", "check", "."],
   ["uv", "run", "--no-sync", "ruff", "format", "--check", "."],
-  ["uv", "run", "--no-sync", "ty", "check", "src"],
-  ["uv", "run", "--no-sync", "pytest", "tests/unit"],
-  ["uv", "run", "--no-sync", "pytest", "tests/integration"],
+  ["uv", "run", "--no-sync", "bandit", "-r", "src"],
   ["uv", "run", "--no-sync", "pip-audit"],
-  ["mise", "run", "python:secrets"],
 ]
